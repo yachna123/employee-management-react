@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krupali Birthday QR Code</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 50%, #f8bbd9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.2);
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ff6b9d, #c77dff, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8e4a6b;
+            margin-bottom: 30px;
+        }
+
+        .qr-container {
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255, 240, 245, 0.5);
+            border-radius: 20px;
+        }
+
+        #qrcode {
+            display: inline-block;
+            padding: 20px;
+            background: white;
+            border: 4px solid #ff6b9d;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+        }
+
+        #qrcode img {
+            display: block !important;
+            margin: 0 auto !important;
+        }
+
+        .url-display {
+            font-size: 1rem;
+            color: #555;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 240, 245, 0.8);
+            border-radius: 10px;
+            word-break: break-all;
+            font-weight: 600;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        .instructions {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 240, 245, 0.8);
+            border-radius: 15px;
+        }
+
+        .instructions h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .success {
+            margin-top: 20px;
+            padding: 15px;
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            button {
+                display: none;
+            }
+
+            .instructions {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎂 Krupali's Birthday QR Code 🎂</h1>
+        <p class="subtitle">Scan to reveal the birthday surprise!</p>
+
+        <div class="qr-container">
+            <div id="qrcode"></div>
+            <div class="url-display">
+                🔗 https://krupali-birthday-wishes.vercel.app/
+            </div>
+        </div>
+
+        <div class="success">
+            ✅ QR Code Generated Successfully!
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button onclick="downloadQR()">⬇️ Download QR Code</button>
+            <button onclick="window.print()">🖨️ Print QR Code</button>
+        </div>
+
+        <div class="instructions">
+            <h3>How to use this QR Code:</h3>
+            <ol>
+                <li><strong>Download</strong>: Click "Download QR Code" to save the image</li>
+                <li><strong>Share</strong>: Send it via WhatsApp, email, or social media</li>
+                <li><strong>Print</strong>: Click "Print" to print it on paper</li>
+                <li><strong>Display</strong>: Show it on your phone or computer screen</li>
+                <li><strong>Scan</strong>: Anyone who scans it will see:
+                    <ul style="margin-top: 10px;">
+                        <li>5-second exciting countdown ⏱️</li>
+                        <li>Beautiful birthday wishes 🎉</li>
+                        <li>Photo memories gallery 📸</li>
+                        <li>Special video moment 🎥</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Using a different, more reliable QR code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+        const birthdayUrl = 'https://krupali-birthday-wishes.vercel.app/';
+
+        // Generate QR code on page load
+        window.addEventListener('load', () => {
+            // Clear any existing content
+            document.getElementById('qrcode').innerHTML = '';
+
+            // Generate QR code
+            const qrcode = new QRCode(document.getElementById('qrcode'), {
+                text: birthdayUrl,
+                width: 300,
+                height: 300,
+                colorDark: '#e91e63',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+
+        function downloadQR() {
+            // Get the QR code image
+            const qrImage = document.querySelector('#qrcode img');
+
+            if (!qrImage) {
+                alert('QR code is still loading. Please wait a moment and try again.');
+                return;
+            }
+
+            // Create a canvas to add the cake emoji in center
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = 340;  // 300 + padding
+            canvas.height = 340;
+
+            // Draw white background with padding
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the QR code
+            ctx.drawImage(qrImage, 20, 20, 300, 300);
+
+            // Draw white circle in center for the cake emoji
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 30;
+
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Draw cake emoji in center
+            ctx.font = '40px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🎂', centerX, centerY);
+
+            // Download the image
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'krupali-birthday-qr-code.png';
+            link.href = url;
+            link.click();
+
+            // Show success message
+            alert('✅ QR Code downloaded successfully!\n\nYou can now share it anywhere! 🎉');
+        }
+    </script>
+</body>
+
+</html>
