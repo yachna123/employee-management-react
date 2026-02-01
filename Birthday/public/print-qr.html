@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday QR Code - Print</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 50%, #f8bbd9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .qr-print-container {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ff6b9d, #c77dff, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8e4a6b;
+            margin-bottom: 40px;
+        }
+
+        #qrcode {
+            display: inline-block;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
+            border: 3px solid #ff6b9d;
+            margin-bottom: 30px;
+        }
+
+        .instructions {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 240, 245, 0.8);
+            border-radius: 15px;
+        }
+
+        .instructions h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .url-display {
+            font-size: 0.9rem;
+            color: #999;
+            word-break: break-all;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 240, 245, 0.5);
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            button {
+                display: none;
+            }
+
+            .qr-print-container {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="qr-print-container">
+        <h1>🎂 Happy Birthday! 🎂</h1>
+        <p class="subtitle">Scan to reveal your special surprise</p>
+
+        <div id="qrcode"></div>
+
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Open your phone's camera app</li>
+                <li>Point it at the QR code above</li>
+                <li>Tap the notification that appears</li>
+                <li>Enjoy your birthday surprise! 🎉</li>
+            </ol>
+        </div>
+
+        <div class="url-display" id="urlDisplay"></div>
+
+        <button onclick="window.print()">🖨️ Print This QR Code</button>
+    </div>
+
+    <script>
+        // Get the current URL and create countdown URL
+        const baseUrl = window.location.origin;
+        const countdownUrl = baseUrl + '/countdown';
+
+        // Display the URL
+        document.getElementById('urlDisplay').textContent = countdownUrl;
+
+        // Generate QR Code
+        new QRCode(document.getElementById("qrcode"), {
+            text: countdownUrl,
+            width: 280,
+            height: 280,
+            colorDark: "#e91e63",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+
+</html>

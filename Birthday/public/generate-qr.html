@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Birthday QR Code</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 50%, #f8bbd9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.2);
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ff6b9d, #c77dff, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8e4a6b;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border: 2px solid #ff6b9d;
+            border-radius: 15px;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e91e63;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        .qr-preview {
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255, 240, 245, 0.5);
+            border-radius: 20px;
+            display: none;
+        }
+
+        .qr-preview.show {
+            display: block;
+        }
+
+        #qrCanvas {
+            margin: 20px auto;
+            display: block;
+            border: 3px solid #ff6b9d;
+            border-radius: 15px;
+            background: white;
+            padding: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .instructions {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 240, 245, 0.8);
+            border-radius: 15px;
+        }
+
+        .instructions h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #e91e63;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .note {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            color: #856404;
+            font-size: 0.95rem;
+        }
+
+        .note strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎂 Generate Birthday QR Code 🎂</h1>
+        <p class="subtitle">Create a scannable QR code for the birthday surprise</p>
+
+        <div class="input-group">
+            <label for="urlInput">Enter your website URL:</label>
+            <input type="url" id="urlInput" placeholder="https://your-birthday-site.com/countdown" value="">
+        </div>
+
+        <button onclick="generateQR()">🎨 Generate QR Code</button>
+
+        <div class="qr-preview" id="qrPreview">
+            <h3 style="font-family: 'Dancing Script', cursive; color: #e91e63; margin-bottom: 20px;">
+                Your QR Code is Ready! 🎉
+            </h3>
+            <canvas id="qrCanvas"></canvas>
+            <div style="margin-top: 20px;">
+                <button onclick="downloadQR()">⬇️ Download QR Code Image</button>
+                <button onclick="printQR()">🖨️ Print QR Code</button>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li><strong>Enter your URL</strong>: Paste the URL where your birthday site is hosted (e.g., from
+                    Vercel, Netlify, or GitHub Pages)</li>
+                <li><strong>Generate</strong>: Click the "Generate QR Code" button</li>
+                <li><strong>Download</strong>: Save the QR code image to your device</li>
+                <li><strong>Share</strong>: Print it, send it via WhatsApp, or display it anywhere!</li>
+                <li><strong>Scan</strong>: When someone scans it, they'll see the countdown and birthday surprise</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>📝 Note:</strong>
+            For local testing, use: <code>http://localhost:5173/countdown</code><br>
+            For production, deploy your site first and use the deployed URL.
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // Set default URL to localhost for testing
+        document.getElementById('urlInput').value = window.location.origin + '/countdown';
+
+        let qrCode = null;
+
+        function generateQR() {
+            const url = document.getElementById('urlInput').value.trim();
+
+            if (!url) {
+                alert('Please enter a URL!');
+                return;
+            }
+
+            // Validate URL
+            try {
+                new URL(url);
+            } catch (e) {
+                alert('Please enter a valid URL (e.g., https://example.com/countdown)');
+                return;
+            }
+
+            // Clear previous QR code
+            const canvas = document.getElementById('qrCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Generate new QR code
+            QRCode.toCanvas(canvas, url, {
+                width: 400,
+                margin: 2,
+                color: {
+                    dark: '#e91e63',
+                    light: '#ffffff'
+                },
+                errorCorrectionLevel: 'H'
+            }, function (error) {
+                if (error) {
+                    console.error(error);
+                    alert('Error generating QR code!');
+                } else {
+                    document.getElementById('qrPreview').classList.add('show');
+                }
+            });
+        }
+
+        function downloadQR() {
+            const canvas = document.getElementById('qrCanvas');
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'birthday-qr-code.png';
+            link.href = url;
+            link.click();
+        }
+
+        function printQR() {
+            const canvas = document.getElementById('qrCanvas');
+            const dataUrl = canvas.toDataURL();
+
+            const windowContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Print QR Code</title>
+                    <style>
+                        @page { margin: 2cm; }
+                        body {
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            padding: 40px;
+                        }
+                        h1 {
+                            color: #e91e63;
+                            margin-bottom: 20px;
+                        }
+                        img {
+                            border: 3px solid #ff6b9d;
+                            border-radius: 15px;
+                            padding: 20px;
+                            background: white;
+                        }
+                        .instructions {
+                            margin-top: 30px;
+                            text-align: left;
+                            max-width: 500px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>🎂 Scan for Birthday Surprise! 🎂</h1>
+                    <img src="${dataUrl}" alt="Birthday QR Code">
+                    <div class="instructions">
+                        <h3>How to scan:</h3>
+                        <ol>
+                            <li>Open your phone's camera app</li>
+                            <li>Point it at the QR code</li>
+                            <li>Tap the notification</li>
+                            <li>Enjoy the surprise! 🎉</li>
+                        </ol>
+                    </div>
+                </body>
+                </html>
+            `;
+
+            const printWindow = window.open('', '', 'width=800,height=600');
+            printWindow.document.write(windowContent);
+            printWindow.document.close();
+            printWindow.focus();
+
+            setTimeout(() => {
+                printWindow.print();
+            }, 250);
+        }
+
+        // Auto-generate on page load
+        window.addEventListener('load', () => {
+            generateQR();
+        });
+    </script>
+</body>
+
+</html>
