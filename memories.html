@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories 💖 — Krupali</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --pink: #ff6b9d;
+            --pink-light: #ffb3d9;
+            --pink-dark: #e91e63;
+            --cream: #fff5f8;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 25%, #fce4ec 50%, #f8bbd9 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 28px 20px 20px;
+        }
+
+        .page-header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: var(--pink-dark);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: var(--pink-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        .memories-list {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .memory-line {
+            width: 100%;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: lineIn 0.6s ease forwards;
+        }
+
+        .memory-line:nth-child(1) { animation-delay: 0.1s; }
+        .memory-line:nth-child(2) { animation-delay: 0.25s; }
+        .memory-line:nth-child(3) { animation-delay: 0.4s; }
+        .memory-line:nth-child(4) { animation-delay: 0.55s; }
+        .memory-line:nth-child(5) { animation-delay: 0.7s; }
+        .memory-line:nth-child(6) { animation-delay: 0.85s; }
+        .memory-line:nth-child(7) { animation-delay: 1s; }
+        .memory-line:nth-child(8) { animation-delay: 1.15s; }
+        .memory-line:nth-child(9) { animation-delay: 1.3s; }
+
+        @keyframes lineIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .memory-line .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(233, 30, 99, 0.18);
+            border: 2px solid rgba(255, 107, 157, 0.25);
+        }
+
+        .memory-line img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: cover;
+            display: block;
+        }
+
+        .memory-line .label {
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: var(--pink-dark);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .memory-line .video-wrap {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .memory-line video {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            display: block;
+        }
+
+        .memory-line .video-label {
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: var(--pink-dark);
+            font-weight: 600;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <h1>Memories 💖</h1>
+        <a href="birthday-krupali.html" class="back-link">← Back to birthday</a>
+    </header>
+
+    <div class="memories-list" id="memoriesList">
+        <div class="memory-line"><div class="card"><img data-src="images/1" alt="Memory 1"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/2" alt="Memory 2"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/3" alt="Memory 3"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/4" alt="Memory 4"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/5" alt="Memory 5"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/6" alt="Memory 6"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/7" alt="Memory 7"></div></div>
+        <div class="memory-line"><div class="card"><img data-src="images/8" alt="Memory 8"></div></div>
+        <div class="memory-line">
+            <div class="card video-card">
+                <div class="video-wrap">
+                    <video id="memoryVideo" controls playsinline preload="metadata" poster="">
+                        <source src="videos/11.mp4" type="video/mp4">
+                        Your browser does not support video.
+                    </video>
+                </div>
+                <span class="video-label">Special moment 💖 (10 sec)</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var placeholders = [
+                'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=600&fit=crop'
+            ];
+            var ext = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG'];
+            var cards = document.querySelectorAll('.memory-line .card img');
+            cards.forEach(function (img, i) {
+                var base = img.getAttribute('data-src');
+                var tried = 0;
+                function tryNext() {
+                    if (tried >= ext.length) {
+                        img.src = placeholders[i] || '';
+                        return;
+                    }
+                    var src = base + '.' + ext[tried];
+                    var test = new Image();
+                    test.onload = function () { img.src = src; };
+                    test.onerror = function () { tried++; tryNext(); };
+                    test.src = src;
+                }
+                tryNext();
+            });
+        })();
+    </script>
+</body>
+</html>
